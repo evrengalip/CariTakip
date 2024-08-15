@@ -1,0 +1,48 @@
+﻿@model Entities.Entities.EmployeeItem
+
+@{
+    decimal previousPaidAmount = Model.TotalPaidAmount - Model.PaidAmount; // Önceki ödenen miktarı hesapla
+    decimal itemPrice = Model.Item.Price ; // Item.Price null ise 0 olarak kabul et
+}
+
+<h2>Çalışan Eşya Güncelleme</h2>
+<hr>
+
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="EmployeeItem" asp-action="Edit" method="post">
+            <input type="hidden" asp-for="EmployeeItemId">
+            <input type="hidden" asp-for="Item.Price"> 
+            <div class="mb-3">
+                <label asp-for="EmployeeId" class="form-label">Çalışan Adı</label>
+                <input asp-for="Employee.Name" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ItemId" class="form-label">Eşya Adı</label>
+                <input asp-for="Item.Name" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PaidAmount" class="form-label">Ödediği Miktar</label>
+                <input asp-for="PaidAmount" class="form-control">
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.PaidAmount)</span> <!-- Doğrulama hata mesajı -->
+            </div>
+            <div class="mb-3">
+                <label asp-for="DateTaken" class="form-label">Aldığı Tarih</label>
+                <input asp-for="DateTaken" class="form-control" readonly>
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.DateTaken)</span> <!-- Doğrulama hata mesajı -->
+            </div>
+            <div class="mb-3">
+                <label asp-for="PaymentDate" class="form-label">Ödeme Tarihi</label>
+                <input asp-for="PaymentDate" class="form-control" type="datetime-local">
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.PaymentDate)</span> <!-- Doğrulama hata mesajı -->
+            </div>
+
+            <div class="mb-3">
+                <label>Toplam Ödenen Miktar:</label>
+                <span>@(Model.PaidAmount + previousPaidAmount)</span>
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Kaydet</button>
+        </form>
+    </div>
+</div>

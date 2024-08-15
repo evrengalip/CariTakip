@@ -1,0 +1,11 @@
+﻿@model Entities.Entities.EmployeeItem
+
+<p>
+    <b> @Model.EmployeeItemId </b> id'li kaydı silmek istiyor musunuz?
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" value="@Model.EmployeeItemId" name="id">
+        <button type="submit" class="btn btn-danger">Evet</button>
+        <a asp-action="Index" class="btn btn-primary">Hayır</a>
+    </form>
+</p>

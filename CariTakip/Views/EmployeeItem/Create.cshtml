@@ -1,0 +1,38 @@
+﻿@model Entities.Entities.EmployeeItem
+
+<h2>Çalışan Eşya Ekleme Kayıt Ekleme</h2>
+<hr>
+<form asp-controller="EmployeeItem" asp-action="Create" method="post">
+    @* Hataları göstermek için ValidationSummary *@
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="EmployeeId" class="form-label">Çalışan</label>
+        <select asp-for="EmployeeId" asp-items="ViewBag.Employees" class="form-select">
+            <option value="">Seçiniz</option>
+        </select>
+        @* EmployeeId için hataları göstermek için ValidationMessageFor *@
+        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ItemId" class="form-label">Item</label>
+        <select asp-for="ItemId" asp-items="ViewBag.Items" class="form-select">
+            <option value="">Seçiniz</option>
+        </select>
+        @* ItemId için hataları göstermek için ValidationMessageFor *@
+        <span asp-validation-for="ItemId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DateTaken" class="form-label">Alım Zamanı</label>
+        <input asp-for="DateTaken" class="form-control" >
+    </div>
+    
+
+    <button type="submit" class="btn btn-secondary">Kaydet</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

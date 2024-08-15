@@ -1,0 +1,138 @@
+﻿@model List<Entities.Entities.PaymentHistory>
+
+@{
+    ViewData["Title"] = "Payment Histories";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .container {
+            margin-top: 20px;
+            background-color: #ffffff; /* White background for the container */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #343a40; /* Dark gray for headings */
+            margin-bottom: 20px;
+            text-align: center; /* Center align heading */
+        }
+
+        .btn-success {
+            background-color: #28a745; /* Green button color */
+            border-color: #28a745;
+        }
+
+            .btn-success:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+
+        .table thead th {
+            background-color: #e9ecef; /* Light gray background for table headers */
+            color: #495057; /* Darker gray for text */
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f1f3f5; /* Very light gray background on row hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Center-aligned heading -->
+        <h2>@ViewData["Title"]</h2>
+
+        <!-- Excel Export Button aligned to the right -->
+        <div class="mb-3 text-end">
+            <a href="@Url.Action("Export", "PaymentHistory")" class="btn btn-success">
+                <i class="fas fa-file-excel me-2"></i> Excel'e Aktar
+            </a>
+        </div>
+
+        <table id="paymentHistoriesTable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Item Name</th>
+                    <th>Total Debt</th>
+                    <th>Paid Amount</th>
+                    <th>Remaining Debt</th>
+                    <th>Payment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var history in Model)
+                {
+                    <tr>
+                        <td>@history.EmployeeItem.Employee.Name</td>
+                        <td>@history.EmployeeItem.Item.Name</td>
+                        <td>@history.EmployeeItem.Item.Price.ToString("C")</td>
+                        <td>@history.PaidAmount.ToString("C")</td>
+                        <td>@history.RemainingDebt.ToString("C")</td>
+                        <td>@history.PaymentDate.ToString("dd-MM-yyyy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#paymentHistoriesTable').DataTable({
+                "order": [[5, "desc"]], // Order by Payment Date column in descending order
+                "paging": true, // Enable pagination
+                "lengthChange": false, // Disable changing number of entries per page
+                "searching": true, // Enable search box
+                "info": true, // Show table information
+                "autoWidth": false, // Disable automatic column width adjustment
+                "responsive": true, // Enable responsive design
+                "language": {
+                    "lengthMenu": "Göster _MENU_ giriş",
+                    "zeroRecords": "Kayıt bulunamadı",
+                    "info": "Sayfa _PAGE_ / _PAGES_",
+                    "infoEmpty": "Kayıt bulunmuyor",
+                    "infoFiltered": "(toplam _MAX_ kayıttan filtrelendi)",
+                    "search": "Ara:",
+                    "paginate": {
+                        "next": "Sonraki",
+                        "previous": "Önceki"
+                    }
+                },
+                "dom": 'Bfrtip',
+                "buttons": [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel\'e Aktar',
+                        className: 'btn btn-success'
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

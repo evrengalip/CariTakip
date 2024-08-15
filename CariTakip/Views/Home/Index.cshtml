@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5; /* Açık gri arka plan */
+            color: #333; /* Koyu gri metin rengi */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff; /* Başlık rengi */
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+        .card-img-top {
+            border-bottom: 1px solid #e0e0e0;
+            border-radius: 10px 10px 0 0;
+            height: 200px; /* Sabit yükseklik */
+            object-fit: cover;
+        }
+
+        .card-body {
+            background-color: #ffffff;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #004b99;
+            }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+            .btn-success:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+
+        .tooltip-inner {
+            background-color: #343a40; /* Koyu gri tooltip arka plan */
+            color: #fff;
+        }
+
+        .tooltip.bs-tooltip-top .arrow::before {
+            border-top-color: #343a40; /* Koyu gri ok ucu */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Cari Takip Sistemine Hoşgeldiniz</h1>
+        <div class="row mt-4">
+            <!-- Employee Management Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card" data-toggle="tooltip" data-placement="top" title="Manage employees easily">
+                    <img src="~/images/employees.jpg" class="card-img-top" alt="Employees Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Management</h5>
+                        <p class="card-text">Manage employees and their debts with ease.</p>
+                        <a href="~/Employee/Index" class="btn btn-primary">
+                            <i class="fas fa-users me-2"></i>Go to Employees
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Item Management Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card" data-toggle="tooltip" data-placement="top" title="Manage items efficiently">
+                    <img src="~/images/items.jpg" class="card-img-top" alt="Items Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Item Management</h5>
+                        <p class="card-text">Manage items and their assignments efficiently.</p>
+                        <a href="~/Item/Index" class="btn btn-primary">
+                            <i class="fas fa-cube me-2"></i>Go to Items
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <!-- Employee Debts Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card" data-toggle="tooltip" data-placement="top" title="View and manage employee debts">
+                    <img src="~/images/debts.jpg" class="card-img-top" alt="Debts Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Debts</h5>
+                        <p class="card-text">View and manage debts of employees with detailed insights.</p>
+                        <a href="~/EmployeeDebt/Index" class="btn btn-primary">
+                            <i class="fas fa-money-bill-alt me-2"></i>View Debts
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Payment History Card -->
+            <div class="col-md-6 mb-4">
+                <div class="card" data-toggle="tooltip" data-placement="top" title="Track and view payment history">
+                    <img src="~/images/payment-history.jpg" class="card-img-top" alt="Payment History Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Payment History</h5>
+                        <p class="card-text">Track and view payment history with comprehensive details.</p>
+                        <a href="~/PaymentHistory/Index" class="btn btn-primary">
+                            <i class="fas fa-history me-2"></i>View Payments
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Bootstrap tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Example of a custom animation
+            $('.btn-primary').hover(
+                function () {
+                    $(this).animate({ opacity: 0.8 }, 200);
+                },
+                function () {
+                    $(this).animate({ opacity: 1 }, 200);
+                }
+            );
+        });
+    </script>
+</body>
+</html>

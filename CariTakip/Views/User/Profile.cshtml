@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+
+        .text-success {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Title Section -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 border-bottom pb-2">@ViewData["Title"]</h1>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+
+                <!-- Validation Summary -->
+                <div class="mb-4">
+                    <div asp-validation-summary="All" class="text-danger small"></div>
+                </div>
+
+                <!-- Full Name Form -->
+                <form method="post" asp-action="ProfileChangeFullName">
+                    <div class="form-group mb-3">
+                        <label class="form-label small">Name Surname</label>
+                        <div class="input-group">
+                            <input name="fullname" type="text" class="form-control" placeholder="John Doe" value="@ViewData["FullName"]" />
+                            <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Email Form -->
+                <form method="post" asp-action="ProfileChangeEmail">
+                    <div class="form-group mb-3">
+                        <label class="form-label small">Email</label>
+                        <div class="input-group">
+                            <input name="Email" type="text" class="form-control" placeholder="a@gmail.com" value="@ViewData["Email"]" />
+                            <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Password Form -->
+                <form method="post" asp-action="ProfileChangePassword">
+                    <div class="form-group mb-3">
+                        <label class="form-label small">New Password</label>
+                        <div class="input-group">
+                            <input name="password" type="password" class="form-control" placeholder="P@ssW0rd!" />
+                            <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                        </div>
+                        @if (ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+                        {
+                            <span class="text-success small">Password updated.</span>
+                        }
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Toastr JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    @section Scripts {
+        @if (ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+        {
+            <script>
+                toastr["success"]("Şifreniz değiştirilmiştir.", "Şifre Değişti!");
+            </script>
+        }
+    }
+</body>
+</html>
